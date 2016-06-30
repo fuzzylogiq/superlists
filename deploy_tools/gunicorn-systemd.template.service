@@ -1,0 +1,17 @@
+[Unit]
+Description=Gunicorn server for SITENAME
+After=network.target
+
+[Service]
+Type=simple
+User=ben
+ExecStart=/home/ben/sites/SITENAME/virtualenv/bin/gunicorn \
+   --bind unix:/tmp/SITENAME.socket \
+   superlists.wsgi:application
+Restart=on-failure
+RestartSec=10
+KillMode=process
+WorkingDirectory=/home/ben/sites/SITENAME/source
+
+[Install]
+WantedBy=multi-user.target
